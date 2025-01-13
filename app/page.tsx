@@ -43,9 +43,10 @@ export default function Home() {
             Take Control of Your Links
           </h1>
           <h4 className="text-lg md:text-xl p-4">
-            Shorty is a platform designed to help you create, manage, and share
-            short links effortlessly. It's fast, reliable, and built for
-            simplicity.
+            {
+              "Shorty is a platform designed to help you create, manage, and share short links effortlessly. It's fast, reliable, and built for simplicity"
+            }
+            .
           </h4>
         </div>
         <div className="w-full flex justify-center">
