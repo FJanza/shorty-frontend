@@ -4,13 +4,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import {Avatar, AvatarFallback, AvatarImage} from "../ui/avatar";
 import {githubSignIn, googleSignIn, logOut} from "@/services/AuthService";
-import {Badge, User} from "lucide-react";
+import {User} from "lucide-react";
 import {useRouter} from "next/navigation";
 import Google from "../icons/Google";
 import Github from "../icons/Github";
@@ -25,7 +24,9 @@ const ProfileButton = ({user, badge, onClick}: Props) => {
         <div className="flex items-center justify-center gap-4">
           <div className="relative">
             <Avatar>
-              <AvatarImage src={user?.photoURL!} />
+              <AvatarImage
+                src={user?.photoURL ?? "https://picsum.photos/200"}
+              />
               <AvatarFallback>
                 <User className="h-5 w-5" />
               </AvatarFallback>
