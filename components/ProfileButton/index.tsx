@@ -24,10 +24,13 @@ const ProfileButton = ({user, badge, onClick}: Props) => {
         <div className="flex items-center justify-center gap-4">
           <div className="relative">
             <Avatar>
-              {user?.photoURL && <AvatarImage src={user?.photoURL} />}
-              <AvatarFallback>
-                <User className="h-5 w-5" />
-              </AvatarFallback>
+              {user?.photoURL ? (
+                <AvatarImage src={user?.photoURL} />
+              ) : (
+                <AvatarFallback>
+                  <User className="h-5 w-5" />
+                </AvatarFallback>
+              )}
             </Avatar>
             <canvas
               className={classNames(
