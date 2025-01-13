@@ -24,9 +24,11 @@ const ProfileButton = ({user, badge, onClick}: Props) => {
         <div className="flex items-center justify-center gap-4">
           <div className="relative">
             <Avatar>
-              <AvatarImage
-                src={user?.photoURL ?? "https://picsum.photos/200"}
-              />
+              {user?.photoURL ? (
+                <AvatarImage src={user?.photoURL} />
+              ) : (
+                <User className="h-5 w-5" />
+              )}
               <AvatarFallback>
                 <User className="h-5 w-5" />
               </AvatarFallback>
