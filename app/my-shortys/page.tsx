@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -22,7 +21,7 @@ import {LoaderCircle} from "lucide-react";
 import React, {useEffect, useState} from "react";
 import {toast} from "sonner";
 
-const myShortys = () => {
+const MyShortys = () => {
   const user = useAuth();
   const [Shortys, setShortys] = useState<URL[]>([]);
   const [loading, setLoading] = useState(true);
@@ -67,6 +66,7 @@ const myShortys = () => {
         setShortys((prev) => [...prev, result]);
       }
     } catch (error) {
+      console.log({error});
       toast.error("Slug already in use");
     }
     setUrlAux({url: "", slug: "", description: ""});
@@ -185,7 +185,6 @@ const myShortys = () => {
                 slug={shorty.slug}
                 url={shorty.url}
                 viewQuantity={shorty.viewQuantity}
-                ownerId={shorty.ownerId}
                 onDelete={() => {
                   setShortys((prev) => prev.filter((_, index) => index !== i));
                 }}
@@ -198,4 +197,4 @@ const myShortys = () => {
   );
 };
 
-export default myShortys;
+export default MyShortys;

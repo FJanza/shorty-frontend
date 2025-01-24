@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import {Avatar, AvatarFallback, AvatarImage} from "../ui/avatar";
+import {Avatar, AvatarFallback} from "../ui/avatar";
 import {githubSignIn, googleSignIn, logOut} from "@/services/AuthService";
 import {User} from "lucide-react";
 import {useRouter} from "next/navigation";

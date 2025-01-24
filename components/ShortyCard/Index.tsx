@@ -13,7 +13,6 @@ import {DeleteShorty} from "@/services/ShortyService";
 import {useAuth} from "../AuthProvider/Index";
 
 const ShortyCard = ({
-  ownerId,
   url,
   slug,
   description,
