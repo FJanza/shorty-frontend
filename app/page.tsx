@@ -13,21 +13,22 @@ export default function Home() {
   const router = useRouter();
   const [badge, setBadge] = useState<boolean>(false);
 
-  const handlerCreateShorty = () => {
+  const handlerVerifyCreateShorty = () => {
     if (!user) {
       toast.error(
         "You need to be logged in to create a Shorty.\n The login button is located at the top."
       );
       setBadge(true);
     } else {
-      router.replace("/my-shortys");
+      router.push("/my-shortys");
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-start h-screen">
-      <nav className="flex flex-row justify-between items-center w-full p-4 px-32">
-        <h1 className="font-bold">Shorty</h1>
+      <nav className="flex flex-row justify-between items-center w-full p-4 px-32 border-b-2 border-gray-600/30">
+        <a href="https://shoorty.vercel.app/" target="_self">
+          <h1 className="font-bold">Shoorty</h1>
+        </a>
         <ProfileButton
           user={user}
           badge={badge}
@@ -36,7 +37,6 @@ export default function Home() {
           }}
         />
       </nav>
-
       <div className="flex flex-col pt-24 gap-6 h-full w-full">
         <div className="flex flex-col items-center justify-start text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold">
@@ -44,7 +44,7 @@ export default function Home() {
           </h1>
           <h4 className="text-lg md:text-xl p-4">
             {
-              "Shorty is a platform designed to help you create, manage, and share short links effortlessly. It's fast, reliable, and built for simplicity"
+              "Shoorty is a platform designed to help you create, manage, and share short links effortlessly. It's fast, reliable, and built for simplicity"
             }
             .
           </h4>
@@ -52,10 +52,12 @@ export default function Home() {
         <div className="w-full flex justify-center">
           <Button
             className="font-bold group transition-all"
-            onClick={handlerCreateShorty}
+            onClick={() => {
+              handlerVerifyCreateShorty();
+            }}
           >
             <Link2 className="h-5 w-5 group-hover:-rotate-45 transition-all" />
-            Create a Shorty
+            Create a Shoorty
           </Button>
         </div>
       </div>
