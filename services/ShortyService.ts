@@ -1,5 +1,3 @@
-import {useAuth} from "@/components/AuthProvider/Index";
-import {URL} from "@/Interfaces/Shorty";
 import {getIdToken, User} from "firebase/auth";
 
 export const GetAllShortys = async (user: User | null) => {
@@ -76,6 +74,39 @@ export const AddShorty = async (
   return await (
     await fetch(
       "https://shoorty.onrender.com/slug/",
+      requestOptions as RequestInit
+    )
+  ).json();
+};
+
+export const EditShorty = async (
+  user: User | null,
+  url: string,
+  slug: string,
+  description: string
+) => {
+  if (!user) return {error: "User not found"};
+
+  const token = await getIdToken(user);
+
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `${token}`);
+
+  const raw = JSON.stringify({
+    url: url,
+    description: description,
+  });
+
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  return await (
+    await fetch(
+      `https://shoorty.onrender.com/slug/?slug=${slug}`,
       requestOptions as RequestInit
     )
   ).json();

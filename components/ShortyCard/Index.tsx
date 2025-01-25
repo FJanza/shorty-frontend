@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Props} from "./types";
-import {Cog, Copy, Eye, Trash} from "lucide-react";
+import {Cog, Copy, Eye, Lock, Trash} from "lucide-react";
 import {toast} from "sonner";
 import classNames from "classnames";
 import {
@@ -9,8 +9,20 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
-import {DeleteShorty} from "@/services/ShortyService";
+import {DeleteShorty, EditShorty} from "@/services/ShortyService";
 import {useAuth} from "../AuthProvider/Index";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import {Button} from "../ui/button";
+import {Label} from "../ui/label";
+import {Input} from "../ui/input";
 
 const ShortyCard = ({
   url,
@@ -18,9 +30,16 @@ const ShortyCard = ({
   description,
   viewQuantity,
   onDelete,
+  onUpdate,
 }: Props) => {
   const user = useAuth();
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
+
+  const [urlAux, setUrlAux] = useState<{
+    url: string;
+    description: string;
+  }>({url: "", description: ""});
 
   const descriptionLong = description.split("").length > 30;
   const urlLong = url.split("").length > 30;
@@ -42,8 +61,25 @@ const ShortyCard = ({
         toast.error("Shoorty deleted");
       });
   };
-
-  const handlerEdit = () => {};
+  const handlerEdit = async (
+    url: string,
+    description: string,
+    slug: string
+  ) => {
+    setEditLoading(true);
+    EditShorty(user, url, slug, description)
+      .then((res) => {
+        console.log(res);
+      })
+      .finally(() => {
+        onUpdate({
+          url: url,
+          description: description,
+        });
+        setEditLoading(false);
+        toast.success("Shoorty edited");
+      });
+  };
 
   const hanlderSeeFullDescription = () => {
     if (descriptionLong) {
@@ -56,16 +92,31 @@ const ShortyCard = ({
       console.log("url");
     }
   };
+  const hanlderSeeFullSlug = () => {
+    if (urlLong) {
+      console.log("slug");
+    }
+  };
+
+  const disabledAddButton =
+    urlAux.url === url && urlAux.description === description;
 
   return (
     <div
       className={classNames(
-        "flex flex-col items-start gap-3 border-2 border-gray-600/30 p-4 rounded-md w-80 h-32",
-        {"animate-pulse border-red-600/50": deleteLoading}
+        "flex flex-col items-start gap-3 border-2 border-gray-600/30 p-4 rounded-md min-w-80 w-80 h-32",
+        {"animate-pulse border-red-600/50": deleteLoading},
+        {"animate-pulse border-cyan-600/50": editLoading}
       )}
     >
       <div className="flex justify-between w-full items-center">
-        <h3 className="cursor-default">
+        <h3
+          className={classNames(
+            "text-base text-white max-w-[15ch] text-ellipsis overflow-hidden whitespace-nowrap cursor-default",
+            {"hover:cursor-pointer hover:text-white/70": urlLong}
+          )}
+          onClick={hanlderSeeFullSlug}
+        >
           /<span className="font-bold">{slug}</span>
         </h3>
         <div className="flex items-center gap-2">
@@ -116,11 +167,87 @@ const ShortyCard = ({
             <TooltipProvider delayDuration={200}>
               <Tooltip>
                 <TooltipTrigger>
-                  <Cog
-                    size={20}
-                    className="hover:text-white/80 cursor-pointer hover:rotate-180 transition-all duration-700"
-                    onClick={handlerEdit}
-                  />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Cog
+                        size={20}
+                        className="hover:text-white/80 cursor-pointer hover:rotate-180 transition-all duration-700"
+                      />
+                    </DialogTrigger>
+                    <DialogContent
+                      className="sm:max-w-[425px]"
+                      aria-describedby={undefined}
+                    >
+                      <DialogHeader>
+                        <DialogTitle>Edit Shoorty</DialogTitle>
+                      </DialogHeader>
+                      <div className="flex flex-col items-start gap-4 py-4">
+                        <div className="flex items-center justify-start gap-4">
+                          <Label className="font-bold w-32 text-start">
+                            Url<span className="font-bold text-red-600">*</span>
+                          </Label>
+                          <Input
+                            value={urlAux.url}
+                            className="w-full"
+                            onChange={(e) => {
+                              setUrlAux((prev) => {
+                                return {...prev, url: e.target.value};
+                              });
+                            }}
+                          />
+                        </div>
+                        <div className="flex items-center justify-start gap-4 relative">
+                          <Label className="font-bold w-32 text-start">
+                            Slug
+                          </Label>
+                          <Input
+                            value={slug}
+                            className="w-full"
+                            disabled={true}
+                          />
+                          <Tooltip>
+                            <TooltipTrigger className="absolute right-3">
+                              <Lock size={15} className="text-white/70 " />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>
+                                If you want to change the slug, delete it and
+                                create a new one.
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </div>
+                        <div className="flex items-center justify-start gap-4">
+                          <Label className="font-bold w-32 text-start">
+                            Description
+                          </Label>
+                          <Input
+                            value={urlAux.description}
+                            className="w-full"
+                            onChange={(e) => {
+                              setUrlAux((prev) => {
+                                return {...prev, description: e.target.value};
+                              });
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button
+                            type="submit"
+                            disabled={disabledAddButton}
+                            className="font-bold"
+                            onClick={() =>
+                              handlerEdit(urlAux.url, urlAux.description, slug)
+                            }
+                          >
+                            Save changes
+                          </Button>
+                        </DialogClose>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Edit Shoorty</p>

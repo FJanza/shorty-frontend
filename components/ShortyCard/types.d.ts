@@ -4,4 +4,5 @@ export interface Props {
   description: string;
   viewQuantity: number;
   onDelete: () => void;
+  onUpdate: (shoorty: {url: string; description: string}) => void;
 }
