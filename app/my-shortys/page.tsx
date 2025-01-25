@@ -192,29 +192,35 @@ const MyShortys = () => {
             </div>
             <div className="col-span-4 row-span-5 flex flex-row justify-end ">
               <div className="flex flex-row flex-wrap gap-3">
-                {Shortys.map((shorty, i) => {
-                  return (
-                    <ShortyCard
-                      key={`shorty-${i}`}
-                      description={shorty.description}
-                      slug={shorty.slug}
-                      url={shorty.url}
-                      viewQuantity={shorty.viewQuantity}
-                      onDelete={() => {
-                        setShortys((prev) =>
-                          prev.filter((_, index) => index !== i)
-                        );
-                      }}
-                      onUpdate={(newShorty) => {
-                        setShortys((prev) =>
-                          prev.map((prevShorty, index) =>
-                            index === i ? {...shorty, ...newShorty} : prevShorty
-                          )
-                        );
-                      }}
-                    />
-                  );
-                })}
+                {Shortys.length > 0 ? (
+                  Shortys.map((shorty, i) => {
+                    return (
+                      <ShortyCard
+                        key={`shorty-${i}`}
+                        description={shorty.description}
+                        slug={shorty.slug}
+                        url={shorty.url}
+                        viewQuantity={shorty.viewQuantity}
+                        onDelete={() => {
+                          setShortys((prev) =>
+                            prev.filter((_, index) => index !== i)
+                          );
+                        }}
+                        onUpdate={(newShorty) => {
+                          setShortys((prev) =>
+                            prev.map((prevShorty, index) =>
+                              index === i
+                                ? {...shorty, ...newShorty}
+                                : prevShorty
+                            )
+                          );
+                        }}
+                      />
+                    );
+                  })
+                ) : (
+                  <p className="text-white/70">Try adding a new shoorty</p>
+                )}
               </div>
             </div>
           </div>
