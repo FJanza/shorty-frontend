@@ -112,8 +112,8 @@ const ShortyCard = ({
       <div className="flex justify-between w-full items-center">
         <h3
           className={classNames(
-            "text-base text-white max-w-[15ch] text-ellipsis overflow-hidden whitespace-nowrap cursor-default",
-            {"hover:cursor-pointer hover:text-white/70": urlLong}
+            "text-base text-white max-w-[15ch] text-ellipsis overflow-hidden whitespace-nowrap cursor-default"
+            // {"hover:cursor-pointer hover:text-white/70": urlLong}
           )}
           onClick={hanlderSeeFullSlug}
         >
@@ -260,8 +260,8 @@ const ShortyCard = ({
       <div className="flex flex-col gap-1 w-full items-start">
         <h3
           className={classNames(
-            "text-base text-white max-w-[30ch] text-ellipsis overflow-hidden whitespace-nowrap cursor-default",
-            {"hover:cursor-pointer hover:text-white/70": urlLong}
+            "text-base text-white max-w-[30ch] text-ellipsis overflow-hidden whitespace-nowrap cursor-default"
+            // {"hover:cursor-pointer hover:text-white/70": urlLong}
           )}
           onClick={hanlderSeeFullUrl}
         >
@@ -269,8 +269,8 @@ const ShortyCard = ({
         </h3>
         <p
           className={classNames(
-            "text-sm text-white/70 max-w-[30ch] text-ellipsis overflow-hidden whitespace-nowrap cursor-default",
-            {"hover:cursor-pointer hover:text-white/90": descriptionLong}
+            "text-sm text-white/70 max-w-[30ch] text-ellipsis overflow-hidden whitespace-nowrap cursor-default"
+            // {"hover:cursor-pointer hover:text-white/90": descriptionLong}
           )}
           onClick={hanlderSeeFullDescription}
         >
