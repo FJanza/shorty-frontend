@@ -39,7 +39,9 @@ const MyShortys = () => {
       const getShortys = async () => {
         GetAllShortys(user)
           .then((res) => {
-            setShortys(res);
+            if (res) {
+              setShortys(res);
+            }
           })
           .finally(() => {
             setLoading(false);
