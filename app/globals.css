@@ -44,3 +44,51 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* HTML: <div class="loader"></div> */
+.loaderFactory {
+  width: 180px; /* Aumentado el ancho */
+  height: 28px; /* Aumentada la altura */
+  box-shadow: 0 6px 0 #fff; /* Ajustada la sombra para mantener proporción */
+  position: relative;
+  clip-path: inset(-80px 0 -10px); /* Ajustado el recorte */
+}
+.loaderFactory:before {
+  content: "";
+  position: absolute;
+  inset: auto calc(50% - 34px) 0; /* Ajustado el desplazamiento horizontal */
+  height: 100px; /* Duplicado el alto */
+  --g: no-repeat linear-gradient(#ccc 0 0);
+  background: var(--g), var(--g), var(--g), var(--g);
+  background-size: 32px 28px; /* Duplicado el tamaño del gradiente */
+  animation: l7-1 2s infinite linear, l7-2 2s infinite linear;
+}
+@keyframes l7-1 {
+  0%,
+  100% {
+    background-position: 0 -100px, 100% -100px; /* Ajustado el desplazamiento */
+  }
+  17.5% {
+    background-position: 0 100%, 100% -100px, 0 -100px, 100% -100px;
+  }
+  35% {
+    background-position: 0 100%, 100% 100%, 0 -100px, 100% -100px;
+  }
+  52.5% {
+    background-position: 0 100%, 100% 100%, 0 calc(100% - 32px), 100% -100px;
+  }
+  70%,
+  98% {
+    background-position: 0 100%, 100% 100%, 0 calc(100% - 32px),
+      100% calc(100% - 32px);
+  }
+}
+@keyframes l7-2 {
+  0%,
+  70% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(400%); /* Aumentado el desplazamiento */
+  }
+}

@@ -1,5 +1,6 @@
 "use client";
 import {useAuth} from "@/components/AuthProvider/Index";
+import FactoryLoader from "@/components/Loaders/Factory";
 import ProfileButton from "@/components/ProfileButton";
 import ShortyCard from "@/components/ShortyCard/Index";
 import {Button} from "@/components/ui/button";
@@ -84,7 +85,12 @@ const MyShortys = () => {
         <ProfileButton user={user} badge={false} />
       </nav>
       {loading ? (
-        <div className="flex justify-start gap-3 px-32">Loading...</div>
+        <div className="flex flex-col items-center justify-center h-[80vh] gap-3">
+          <FactoryLoader />
+          <h5 className="text-sm text-white/60">
+            Sorry for the wait, we are bringing your shoortys
+          </h5>
+        </div>
       ) : (
         <div className="flex justify-start gap-3 px-32">
           <div className="relative">
