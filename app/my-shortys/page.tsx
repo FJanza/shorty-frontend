@@ -43,7 +43,6 @@ const MyShortys = () => {
           })
           .finally(() => {
             setLoading(false);
-            console.log("first");
           });
       };
       getShortys();
