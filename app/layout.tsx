@@ -26,6 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta property="og:image" content="/screenshoot.webp" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#141414] text-white`}
       >
