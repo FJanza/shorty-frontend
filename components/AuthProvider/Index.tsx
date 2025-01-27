@@ -5,6 +5,7 @@ import {onAuthStateChanged, User} from "firebase/auth";
 import {Props} from "./types";
 import {auth} from "@/firebaseConfig";
 import {usePathname, useRouter} from "next/navigation";
+import LoadingAuth from "../Loaders/Auth";
 
 const AuthContext = createContext<User | null>(null);
 const WHITE_LIST = ["/", "/robots.txt"];
@@ -33,7 +34,15 @@ const AuthProvider = ({children}: Props) => {
   }, [path]);
 
   return (
-    <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={currentUser}>
+      {currentUser || WHITE_LIST.includes(path) ? (
+        <>{children}</>
+      ) : (
+        <div className="h-screen flex items-center justify-center">
+          <LoadingAuth />
+        </div>
+      )}
+    </AuthContext.Provider>
   );
 };
 

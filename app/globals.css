@@ -92,3 +92,23 @@ body {
     transform: translate(400%); /* Aumentado el desplazamiento */
   }
 }
+
+.loaderAuth {
+  width: fit-content;
+  font-size: 40px;
+  font-family: system-ui, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #0000;
+  -webkit-text-stroke: 1px #ffffff46;
+  background: conic-gradient(#ffffffda 0 0) 0/0% 100% no-repeat text;
+  animation: l1 2s linear infinite;
+}
+.loaderAuth:before {
+  content: "authentication in progress";
+}
+@keyframes l1 {
+  to {
+    background-size: 120% 100%;
+  }
+}

@@ -43,6 +43,10 @@ const ProfileButton = ({user, badge, onClick}: Props) => {
       <DropdownMenuContent className="mt-2">
         {user ? (
           <>
+            <DropdownMenuItem className="cursor-default  flex justify-center">
+              {user.email}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer hover:brightness-105 flex justify-center"
               onClick={() => {
@@ -53,7 +57,10 @@ const ProfileButton = ({user, badge, onClick}: Props) => {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={logOut}
+              onClick={() => {
+                logOut();
+                router.push("/");
+              }}
               className="cursor-pointer hover:brightness-105 flex justify-center"
             >
               LogOut

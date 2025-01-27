@@ -93,12 +93,12 @@ const MyShortys = () => {
           </h5>
         </div>
       ) : (
-        <div className="flex justify-start gap-3 ">
-          <div className="grid grid-cols-5 grid-rows-5 gap-4 px-32">
-            <div className="row-span-5">
-              <div className="relative">
-                <Dialog>
-                  <DialogTrigger asChild>
+        <div className="flex justify-start gap-3 h-[80vh] mt-3">
+          <div className="grid grid-cols-5 grid-rows-5 gap-4 px-32 w-full">
+            <div className="col-span-1 row-span-5">
+              <Dialog>
+                <DialogTrigger asChild disabled>
+                  <div className="relative  w-fit">
                     <Button
                       className={classNames("font-bold", {
                         "animate-pulse": loadingAdd,
@@ -107,94 +107,100 @@ const MyShortys = () => {
                       Add Shoorty{" "}
                       <PlusCircle size={20} className=" text-black" />
                     </Button>
-                  </DialogTrigger>
-                  <DialogContent
-                    className="sm:max-w-[425px]"
-                    aria-describedby={undefined}
-                  >
-                    <DialogHeader>
-                      <DialogTitle>Add Shoorty</DialogTitle>
-                    </DialogHeader>
-                    <div className="flex flex-col items-start gap-4 py-4">
-                      <div className="flex items-center justify-start gap-4">
-                        <Label className="font-bold w-32 text-start">
-                          Url<span className="font-bold text-red-600">*</span>
-                        </Label>
-                        <Input
-                          value={urlAux.url}
-                          className="w-full"
-                          onChange={(e) => {
-                            setUrlAux((prev) => {
-                              return {...prev, url: e.target.value};
-                            });
-                          }}
-                        />
-                      </div>
-                      <div className="flex items-center justify-start gap-4">
-                        <Label className="font-bold w-32 text-start">
-                          Slug<span className="font-bold text-red-600">*</span>
-                        </Label>
-                        <Input
-                          value={urlAux.slug}
-                          className="w-full"
-                          onChange={(e) => {
-                            setUrlAux((prev) => {
-                              return {...prev, slug: e.target.value};
-                            });
-                          }}
-                        />
-                      </div>
-                      <div className="flex items-center justify-start gap-4">
-                        <Label className="font-bold w-32 text-start">
-                          Description
-                        </Label>
-                        <Input
-                          value={urlAux.description}
-                          className="w-full"
-                          onChange={(e) => {
-                            setUrlAux((prev) => {
-                              return {...prev, description: e.target.value};
-                            });
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <DialogClose asChild>
-                        <Button
-                          type="submit"
-                          disabled={disabledAddButton}
-                          className="font-bold"
-                          onClick={() =>
-                            handlerAddShorty(
-                              urlAux.url,
-                              urlAux.slug,
-                              urlAux.description
-                            )
-                          }
-                        >
-                          Save changes
-                        </Button>
-                      </DialogClose>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-                <div
-                  className={classNames(
-                    "absolute -top-2 -right-2 animate-spin ",
-                    {
-                      " hidden": !loadingAdd,
-                    }
-                  )}
+
+                    <LoaderCircle
+                      size={20}
+                      className={classNames(
+                        "absolute -top-2 -right-2 animate-spin text-white ",
+                        {
+                          " hidden": !loadingAdd,
+                        }
+                      )}
+                    />
+                  </div>
+                </DialogTrigger>
+                <DialogContent
+                  className={"sm:max-w-[425px]"}
+                  aria-describedby={undefined}
                 >
-                  <LoaderCircle size={20} className="text-white" />
-                </div>
-              </div>
+                  <DialogHeader>
+                    <DialogTitle>Add Shoorty</DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col items-start gap-4 py-4">
+                    <div className="flex items-center justify-start gap-4">
+                      <Label className="font-bold w-32 text-start">
+                        Url<span className="font-bold text-red-600">*</span>
+                      </Label>
+                      <Input
+                        value={urlAux.url}
+                        className="w-full"
+                        onChange={(e) => {
+                          setUrlAux((prev) => {
+                            return {...prev, url: e.target.value};
+                          });
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center justify-start gap-4">
+                      <Label className="font-bold w-32 text-start">
+                        Slug<span className="font-bold text-red-600">*</span>
+                      </Label>
+                      <Input
+                        value={urlAux.slug}
+                        className="w-full"
+                        onChange={(e) => {
+                          setUrlAux((prev) => {
+                            return {...prev, slug: e.target.value};
+                          });
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center justify-start gap-4">
+                      <Label className="font-bold w-32 text-start">
+                        Description
+                      </Label>
+                      <Input
+                        value={urlAux.description}
+                        className="w-full"
+                        onChange={(e) => {
+                          setUrlAux((prev) => {
+                            return {...prev, description: e.target.value};
+                          });
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button
+                        type="submit"
+                        disabled={disabledAddButton}
+                        className="font-bold"
+                        onClick={() =>
+                          handlerAddShorty(
+                            urlAux.url,
+                            urlAux.slug,
+                            urlAux.description
+                          )
+                        }
+                      >
+                        Save changes
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
-            <div className="col-span-4 row-span-5 flex flex-row justify-end ">
-              <div className="flex flex-row flex-wrap gap-3">
-                {Shortys.length > 0 ? (
-                  Shortys.map((shorty, i) => {
+            {Shortys.length < 1 ? (
+              <div className="col-span-4 row-span-5 flex flex-row justify-center">
+                <h4 className="text-xl font-semibold text-white/70 animate-pulse">
+                  Try adding a new shoorty
+                </h4>
+              </div>
+            ) : (
+              <div className="col-span-4 row-span-5 ">
+                <div className="flex flex-row flex-wrap gap-3 ">
+                  {Shortys.map((shorty, i) => {
                     return (
                       <ShortyCard
                         key={`shorty-${i}`}
@@ -218,12 +224,10 @@ const MyShortys = () => {
                         }}
                       />
                     );
-                  })
-                ) : (
-                  <p className="text-white/70">Try adding a new shoorty</p>
-                )}
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
