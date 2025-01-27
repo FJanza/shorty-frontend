@@ -3,7 +3,7 @@
 import {useAuth} from "@/components/AuthProvider/Index";
 import ProfileButton from "@/components/ProfileButton";
 import {Button} from "@/components/ui/button";
-import {Link2} from "lucide-react";
+import {Link2, Siren} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {toast} from "sonner";
@@ -58,7 +58,7 @@ export default function Home() {
             </h1>
           </a>
         </div>
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center gap-3">
           <Button
             className="font-bold group transition-all"
             onClick={() => {
@@ -68,6 +68,18 @@ export default function Home() {
             <Link2 className="h-5 w-5 group-hover:-rotate-45 transition-all" />
             Create a Shoorty
           </Button>
+          <a
+            href="https://github.com/FJanza/shorty-frontend/issues"
+            target="_blank"
+          >
+            <Button
+              className="font-bold group transition-all"
+              variant={"secondary"}
+            >
+              <Siren className="h-5 w-5 group-hover:animate-color-change " />I
+              found a issue
+            </Button>
+          </a>
         </div>
       </div>
     </div>
