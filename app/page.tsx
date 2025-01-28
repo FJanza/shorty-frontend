@@ -77,7 +77,7 @@ export default function Home() {
               variant={"secondary"}
             >
               <Siren className="h-5 w-5 group-hover:animate-color-change " />I
-              found a issue
+              found an issue
             </Button>
           </a>
         </div>
