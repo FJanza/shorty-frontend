@@ -16,10 +16,17 @@ import {
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Textarea} from "@/components/ui/textarea";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {URL} from "@/Interfaces/Shorty";
+import {generateSlug} from "@/lib/utils";
 import {AddShorty, GetAllShortys} from "@/services/ShortyService";
 import classNames from "classnames";
-import {LoaderCircle, PlusCircle} from "lucide-react";
+import {LoaderCircle, PlusCircle, RefreshCcw} from "lucide-react";
 import React, {useEffect, useState} from "react";
 import {toast} from "sonner";
 
@@ -179,6 +186,23 @@ const MyShortys = () => {
                           }
                         }}
                       />
+                      <TooltipProvider delayDuration={200}>
+                        <Tooltip>
+                          <TooltipTrigger className="absolute right-2 top-2 hover:bg-white/10 rounded-sm w-6 h-6 flex justify-center items-center">
+                            <RefreshCcw
+                              className="h-4 w-4"
+                              onClick={() => {
+                                setUrlAux((prev) => {
+                                  return {...prev, slug: generateSlug(18)};
+                                });
+                              }}
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Generate random slug</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                     <div className="flex items-start justify-start gap-4 w-full">
                       <Label className="font-bold w-32 text-start mt-3">
