@@ -28,6 +28,7 @@ export const addNewUser = async ({uid, email}: AddNewUserProps) => {
 
   await setDoc(doc(db, "users", uid), {
     email: email,
+    receiveUserInfo: false,
   });
 
   return {
