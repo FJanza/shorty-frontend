@@ -24,6 +24,8 @@ import React, {useEffect, useState} from "react";
 import {toast} from "sonner";
 
 const MyShortys = () => {
+  const specialChars = /[!@#{}\[\]]/;
+
   const user = useAuth();
   const [Shortys, setShortys] = useState<URL[]>([]);
   const [loading, setLoading] = useState(true);
@@ -142,7 +144,7 @@ const MyShortys = () => {
                         }}
                       />
                     </div>
-                    <div className="flex items-center justify-start gap-4 w-full">
+                    <div className="relative flex items-center justify-start gap-4 w-full">
                       <Label className="font-bold w-32 text-start">
                         Slug<span className="font-bold text-red-600">*</span>
                       </Label>
@@ -159,16 +161,21 @@ const MyShortys = () => {
                               };
                             });
                           }
-                          if (!newSlug.includes("/")) {
+                          if (
+                            !newSlug.includes("/") &&
+                            !specialChars.test(newSlug)
+                          ) {
                             setUrlAux((prev) => {
                               return {...prev, slug: newSlug};
                             });
                           } else {
-                            toast.error(
-                              `Slug cannot contain ${
-                                newSlug.includes(" ") ? "spaces" : "slashes"
-                              }`
-                            );
+                            if (specialChars.test(newSlug)) {
+                              toast.error(
+                                `Slug cannot contain special characters like !@#{}[]`
+                              );
+                            } else {
+                              toast.error(`Slug cannot contain slashes`);
+                            }
                           }
                         }}
                       />
