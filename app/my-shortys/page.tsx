@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {Textarea} from "@/components/ui/textarea";
 import {URL} from "@/Interfaces/Shorty";
 import {AddShorty, GetAllShortys} from "@/services/ShortyService";
 import classNames from "classnames";
@@ -127,7 +128,7 @@ const MyShortys = () => {
                     <DialogTitle>Add Shoorty</DialogTitle>
                   </DialogHeader>
                   <div className="flex flex-col items-start gap-4 py-4">
-                    <div className="flex items-center justify-start gap-4">
+                    <div className="flex items-center justify-start gap-4 w-full">
                       <Label className="font-bold w-32 text-start">
                         Url<span className="font-bold text-red-600">*</span>
                       </Label>
@@ -141,25 +142,42 @@ const MyShortys = () => {
                         }}
                       />
                     </div>
-                    <div className="flex items-center justify-start gap-4">
+                    <div className="flex items-center justify-start gap-4 w-full">
                       <Label className="font-bold w-32 text-start">
                         Slug<span className="font-bold text-red-600">*</span>
                       </Label>
                       <Input
-                        value={urlAux.slug}
+                        value={urlAux.slug.replaceAll(" ", "-")}
                         className="w-full"
                         onChange={(e) => {
-                          setUrlAux((prev) => {
-                            return {...prev, slug: e.target.value};
-                          });
+                          const newSlug = e.target.value;
+                          if (newSlug.includes(" ")) {
+                            setUrlAux((prev) => {
+                              return {
+                                ...prev,
+                                slug: newSlug.replaceAll(" ", "-"),
+                              };
+                            });
+                          }
+                          if (!newSlug.includes("/")) {
+                            setUrlAux((prev) => {
+                              return {...prev, slug: newSlug};
+                            });
+                          } else {
+                            toast.error(
+                              `Slug cannot contain ${
+                                newSlug.includes(" ") ? "spaces" : "slashes"
+                              }`
+                            );
+                          }
                         }}
                       />
                     </div>
-                    <div className="flex items-center justify-start gap-4">
-                      <Label className="font-bold w-32 text-start">
+                    <div className="flex items-start justify-start gap-4 w-full">
+                      <Label className="font-bold w-32 text-start mt-3">
                         Description
                       </Label>
-                      <Input
+                      <Textarea
                         value={urlAux.description}
                         className="w-full"
                         onChange={(e) => {

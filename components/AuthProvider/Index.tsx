@@ -8,7 +8,7 @@ import {usePathname, useRouter} from "next/navigation";
 import LoadingAuth from "../Loaders/Auth";
 
 const AuthContext = createContext<User | null>(null);
-const WHITE_LIST = ["/", "/robots.txt"];
+const WHITE_LIST = ["/", "/robots.txt", "/terms-and-conditions"];
 
 export const useAuth = () => {
   return useContext(AuthContext);

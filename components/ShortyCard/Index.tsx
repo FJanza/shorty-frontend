@@ -23,6 +23,7 @@ import {
 import {Button} from "../ui/button";
 import {Label} from "../ui/label";
 import {Input} from "../ui/input";
+import {Textarea} from "../ui/textarea";
 
 const ShortyCard = ({
   url,
@@ -77,6 +78,7 @@ const ShortyCard = ({
           description: description,
         });
         setEditLoading(false);
+        setUrlAux({url: "", description: ""});
         toast.success("Shoorty edited");
       });
   };
@@ -106,7 +108,7 @@ const ShortyCard = ({
       className={classNames(
         "flex flex-col items-start gap-3 border-2 border-gray-600/30 p-4 rounded-md min-w-80 w-80 h-32",
         {"animate-pulse border-red-600/50": deleteLoading},
-        {"animate-pulse border-cyan-600/50": editLoading}
+        {"animate-pulse border-cyan-600/60": editLoading}
       )}
     >
       <div className="flex justify-between w-full items-center">
@@ -181,12 +183,13 @@ const ShortyCard = ({
                       <DialogHeader>
                         <DialogTitle>Edit Shoorty</DialogTitle>
                       </DialogHeader>
-                      <div className="flex flex-col items-start gap-4 py-4">
-                        <div className="flex items-center justify-start gap-4">
+                      <div className="flex flex-col items-start gap-4 py-4 ">
+                        <div className="flex items-center justify-start gap-4 w-full">
                           <Label className="font-bold w-32 text-start">
                             Url<span className="font-bold text-red-600">*</span>
                           </Label>
                           <Input
+                            placeholder={url}
                             value={urlAux.url}
                             className="w-full"
                             onChange={(e) => {
@@ -196,7 +199,7 @@ const ShortyCard = ({
                             }}
                           />
                         </div>
-                        <div className="flex items-center justify-start gap-4 relative">
+                        <div className="flex items-center justify-start gap-4 relative w-full">
                           <Label className="font-bold w-32 text-start">
                             Slug
                           </Label>
@@ -217,11 +220,15 @@ const ShortyCard = ({
                             </TooltipContent>
                           </Tooltip>
                         </div>
-                        <div className="flex items-center justify-start gap-4">
-                          <Label className="font-bold w-32 text-start">
+                        <div className="flex items-start justify-start gap-4 w-full">
+                          <Label className="font-bold w-32 text-start mt-3">
                             Description
                           </Label>
-                          <Input
+                          <Textarea
+                            placeholder={
+                              description.slice(0, 10) +
+                              `${description.length > 10 ? "..." : ""}`
+                            }
                             value={urlAux.description}
                             className="w-full"
                             onChange={(e) => {

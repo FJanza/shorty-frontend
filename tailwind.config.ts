@@ -60,11 +60,21 @@ export default {
       },
       animation: {
         "color-change": "colorChange 1s infinite",
+        "color-change-rainbow": "colorChangeRainbow 3s infinite",
       },
       keyframes: {
         colorChange: {
           "0%, 100%": {color: "rgb(239, 68, 68)"}, // rojo
           "49%": {color: "rgb(59, 130, 246)"}, // azul
+        },
+        colorChangeRainbow: {
+          "0%, 100%": {color: "rgb(239, 68, 68)"}, // rojo
+          "16.67%": {color: "rgb(255, 165, 0)"}, // naranja
+          "33.33%": {color: "rgb(255, 255, 0)"}, // amarillo
+          "50%": {color: "rgb(0, 128, 0)"}, // verde
+          "66.67%": {color: "rgb(0, 100, 255)"}, // azul
+          "83.33%": {color: "rgb(125, 50, 140)"}, // índigo
+          "100%": {color: "rgb(255, 130, 238)"}, // violeta
         },
       },
     },
