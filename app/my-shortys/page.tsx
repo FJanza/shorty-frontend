@@ -26,7 +26,7 @@ import {URL} from "@/Interfaces/Shorty";
 import {generateSlug} from "@/lib/utils";
 import {AddShorty, GetAllShortys} from "@/services/ShortyService";
 import classNames from "classnames";
-import {LoaderCircle, PlusCircle, RefreshCcw} from "lucide-react";
+import {CircleHelp, LoaderCircle, PlusCircle, RefreshCcw} from "lucide-react";
 import React, {useEffect, useState} from "react";
 import {toast} from "sonner";
 
@@ -152,9 +152,26 @@ const MyShortys = () => {
                       />
                     </div>
                     <div className="relative flex items-center justify-start gap-4 w-full">
-                      <Label className="font-bold w-32 text-start">
+                      <Label className="font-bold w-32 text-start flex flex-row justify-start gap-1 items-center">
                         Slug<span className="font-bold text-red-600">*</span>
+                        <TooltipProvider delayDuration={200}>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <CircleHelp className="h-4 w-4" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>
+                                {urlAux.slug == "" ? "Example" : "Preview"}:
+                                shoorty.onrender.com/
+                                <span className="animate-color-change-rainbow">
+                                  {urlAux.slug || "slug"}
+                                </span>
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       </Label>
+
                       <Input
                         value={urlAux.slug.replaceAll(" ", "-")}
                         className="w-full"
