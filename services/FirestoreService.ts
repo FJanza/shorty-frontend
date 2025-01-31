@@ -5,6 +5,7 @@ import {
   setDoc,
   getDocs,
   collection,
+  updateDoc,
 } from "firebase/firestore";
 
 const db = getFirestore(app);
@@ -15,8 +16,6 @@ interface AddNewUserProps {
 }
 
 export const addNewUser = async ({uid, email}: AddNewUserProps) => {
-  let userExists = false;
-
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
     if (doc.data().email === email && doc.id !== uid) {
@@ -25,17 +24,12 @@ export const addNewUser = async ({uid, email}: AddNewUserProps) => {
         status: "error",
         message: "User already exists",
       };
-    } else {
-      userExists = true;
     }
   });
 
-  if (!userExists) {
-    await setDoc(doc(db, "users", uid), {
-      email: email,
-      receiveUserInfo: false,
-    });
-  }
+  await setDoc(doc(db, "users", uid), {
+    email: email,
+  });
 
   return {
     status: "ok",
@@ -53,10 +47,10 @@ export const getUserReceiveInfo = async (email: string) => {
     }
   });
 
-  if (receiveUserInfo === null) {
+  if (receiveUserInfo === null || receiveUserInfo === undefined) {
     return {
-      status: "error",
-      message: "User not found",
+      status: "ok",
+      receiveUserInfo: undefined,
     };
   }
 
@@ -64,4 +58,10 @@ export const getUserReceiveInfo = async (email: string) => {
     status: "ok",
     receiveUserInfo: receiveUserInfo,
   };
+};
+
+export const setUserReceiveInfo = async (uid: string, userAccept: boolean) => {
+  await updateDoc(doc(db, "users", uid), {
+    receiveUserInfo: userAccept,
+  });
 };

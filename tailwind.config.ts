@@ -61,11 +61,16 @@ export default {
       animation: {
         "color-change": "colorChange 1s infinite",
         "color-change-rainbow": "colorChangeRainbow 3s infinite",
+        pulseBorder: "pulseBorder 1.5s infinite",
       },
       keyframes: {
         colorChange: {
           "0%, 100%": {color: "rgb(239, 68, 68)"}, // rojo
           "49%": {color: "rgb(59, 130, 246)"}, // azul
+        },
+        redPulse: {
+          "0%, 100%": {color: "rgb(239, 68, 68)"}, // rojo
+          "49%": {color: "rgb(239, 88, 88)"}, // azul
         },
         colorChangeRainbow: {
           "0%, 100%": {color: "rgb(239, 68, 68)"}, // rojo
@@ -75,6 +80,11 @@ export default {
           "66.67%": {color: "rgb(0, 100, 255)"}, // azul
           "83.33%": {color: "rgb(125, 50, 140)"}, // índigo
           "100%": {color: "rgb(255, 130, 238)"}, // violeta
+        },
+        pulseBorder: {
+          "0%": {boxShadow: "0 0 0 0 rgba(246, 246, 246, 0.3)"},
+          "50%": {boxShadow: "0 0 10px 5px rgba(246, 246, 246, 0.1)"},
+          "100%": {boxShadow: "0 0 0 0 rgba(246, 246, 246, 0.0)"},
         },
       },
     },

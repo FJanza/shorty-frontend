@@ -2,16 +2,21 @@
 
 import {useAuth} from "@/components/AuthProvider/Index";
 import ProfileButton from "@/components/ProfileButton";
+import ReceiveInfoCard from "@/components/ReceiveInfoCard";
 import {Button} from "@/components/ui/button";
+import {getUserReceiveInfo} from "@/services/FirestoreService";
 import {Link2, Siren} from "lucide-react";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
 export default function Home() {
   const user = useAuth();
   const router = useRouter();
   const [badge, setBadge] = useState<boolean>(false);
+  const [showReceiveInfoPopUp, setShowReceiveInfoPopUp] = useState<
+    boolean | undefined
+  >(false);
 
   const handlerVerifyCreateShorty = () => {
     if (!user) {
@@ -23,8 +28,29 @@ export default function Home() {
       router.push("/my-shortys");
     }
   };
+
+  useEffect(() => {
+    const ReceiveDataPopUp = async () => {
+      if (user?.email) {
+        const obj = await getUserReceiveInfo(user.email);
+
+        console.log({obj});
+
+        if (obj) {
+          setShowReceiveInfoPopUp(obj.receiveUserInfo);
+        }
+      }
+    };
+
+    ReceiveDataPopUp();
+  }, [user?.email]);
+
+  useEffect(() => {
+    console.log({showReceiveInfoPopUp});
+  }, [showReceiveInfoPopUp]);
+
   return (
-    <div className="flex flex-col items-center justify-start h-screen">
+    <div className="flex flex-col items-center justify-start h-screen relative">
       <nav className="flex flex-row justify-between items-center w-full p-4 px-32 border-b-2 border-gray-600/30">
         <a href="https://shoorty.vercel.app/" target="_self">
           <h1 className="font-bold">Shoorty</h1>
@@ -82,6 +108,13 @@ export default function Home() {
           </a>
         </div>
       </div>
+      <ReceiveInfoCard
+        uid={user?.uid || ""}
+        show={
+          !(showReceiveInfoPopUp === false || showReceiveInfoPopUp === true) &&
+          !!user
+        }
+      />
     </div>
   );
 }

@@ -71,7 +71,7 @@ const ProfileButton = ({user, badge, onClick}: Props) => {
             <DropdownMenuItem
               onClick={async () => {
                 await googleSignIn();
-                router.replace("/my-shortys");
+                // router.replace("/my-shortys");
               }}
               className="cursor-pointer hover:brightness-105 flex justify-center"
             >
@@ -81,7 +81,7 @@ const ProfileButton = ({user, badge, onClick}: Props) => {
             <DropdownMenuItem
               onClick={async () => {
                 await githubSignIn();
-                router.replace("/my-shortys");
+                // router.replace("/my-shortys");
               }}
               className="cursor-pointer hover:brightness-105 flex justify-center"
             >
