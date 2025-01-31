@@ -25,9 +25,8 @@ export const googleSignIn = async (): Promise<any> => {
       const email = user.email ?? "";
       const uid = user.uid;
 
-      const obj = await addNewUser({uid, email});
+      await addNewUser({uid, email});
 
-      console.log(obj);
       // IdP data available using getAdditionalUserInfo(result)
       // ...
     })
@@ -62,8 +61,7 @@ export const githubSignIn = async (): Promise<any> => {
       const email = user.email ?? "";
       const uid = user.uid;
 
-      const obj = await addNewUser({uid, email});
-      console.log(obj);
+      await addNewUser({uid, email});
 
       // IdP data available using getAdditionalUserInfo(result)
       // ...
