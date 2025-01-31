@@ -111,7 +111,7 @@ export default function Home() {
       <ReceiveInfoCard
         uid={user?.uid || ""}
         show={
-          !(showReceiveInfoPopUp === false || showReceiveInfoPopUp === true) &&
+          !(showReceiveInfoPopUp === false || showReceiveInfoPopUp === true) ||
           !!user
         }
       />
