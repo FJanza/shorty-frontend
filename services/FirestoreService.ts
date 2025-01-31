@@ -2,10 +2,10 @@ import {app} from "@/firebaseConfig";
 import {
   getFirestore,
   doc,
-  setDoc,
   getDocs,
   collection,
   updateDoc,
+  setDoc,
 } from "firebase/firestore";
 
 const db = getFirestore(app);
@@ -16,8 +16,13 @@ interface AddNewUserProps {
 }
 
 export const addNewUser = async ({uid, email}: AddNewUserProps) => {
+  let userExists = false;
+
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
+    if (doc.data().email === email) {
+      userExists = true;
+    }
     if (doc.data().email === email && doc.id !== uid) {
       //console.log("User already exists");
       return {
@@ -27,9 +32,11 @@ export const addNewUser = async ({uid, email}: AddNewUserProps) => {
     }
   });
 
-  await setDoc(doc(db, "users", uid), {
-    email: email,
-  });
+  if (!userExists) {
+    await setDoc(doc(db, "users", uid), {
+      email: email,
+    });
+  }
 
   return {
     status: "ok",
