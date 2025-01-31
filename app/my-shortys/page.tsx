@@ -70,8 +70,6 @@ const MyShortys = () => {
     try {
       const result = await AddShorty(user, url, slug, description);
 
-      console.log({result});
-
       if (result.error) {
         console.log(result.error);
       } else {

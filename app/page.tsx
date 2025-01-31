@@ -34,8 +34,6 @@ export default function Home() {
       if (user?.email) {
         const obj = await getUserReceiveInfo(user.email);
 
-        console.log({obj});
-
         if (obj) {
           setShowReceiveInfoPopUp(obj.receiveUserInfo);
         }
@@ -44,10 +42,6 @@ export default function Home() {
 
     ReceiveDataPopUp();
   }, [user?.email]);
-
-  useEffect(() => {
-    console.log({showReceiveInfoPopUp});
-  }, [showReceiveInfoPopUp]);
 
   return (
     <div className="flex flex-col items-center justify-start h-screen relative">
