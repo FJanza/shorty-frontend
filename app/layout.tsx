@@ -18,6 +18,16 @@ export const metadata: Metadata = {
   title: "Shoorty",
   description: "Take control of your links",
   metadataBase: new URL("https://shoorty.com"),
+  keywords: [
+    "shoorty",
+    "shorty",
+    "shooorty",
+    "url",
+    "short url",
+    "shorter url",
+    "fancy url shorter",
+    "minimalist url shorter",
+  ],
   openGraph: {
     type: "website",
     url: "https://shoorty.com/",
@@ -41,6 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <meta property="og:image" content="/screenshoot.webp" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#141414] text-white`}
       >
