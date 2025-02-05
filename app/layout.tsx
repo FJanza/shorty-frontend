@@ -17,6 +17,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Shoorty",
   description: "Take control of your links",
+  metadataBase: new URL("https://shoorty.com"),
+  openGraph: {
+    type: "website",
+    url: "https://shoorty.com/",
+    title: "Shoorty - URLs shorter",
+    description: "Shorten and manage your links with Shoorty efficiently.",
+    images: ["/screenshoot.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shoorty - Acortador de URLs",
+    description: "Shorten and manage your links with Shoorty efficiently.",
+    images: ["/screenshoot.webp"],
+  },
 };
 
 export default function RootLayout({

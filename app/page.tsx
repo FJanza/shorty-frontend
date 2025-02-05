@@ -10,6 +10,22 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
+export const metadata = {
+  title: "Home | Shoorty",
+  description: "Shorten and manage your links with Shoorty efficiently.",
+  openGraph: {
+    url: "https://shoorty.com/",
+    title: "Shoorty - Shorten your URLs easily",
+    description: "Shorten and manage your links with Shoorty efficiently.",
+    images: ["/screenshoot.webp"],
+  },
+  twitter: {
+    title: "Shoorty - Shorten your URLs easily",
+    description: "Shorten and manage your links with Shoorty efficiently.",
+    images: ["/screenshoot.webp"],
+  },
+};
+
 export default function Home() {
   const user = useAuth();
   const router = useRouter();
