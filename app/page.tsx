@@ -3,6 +3,7 @@
 import {useAuth} from "@/components/AuthProvider/Index";
 import ProfileButton from "@/components/ProfileButton";
 import ReceiveInfoCard from "@/components/ReceiveInfoCard";
+import Squares from "@/components/Squares";
 import {Button} from "@/components/ui/button";
 import {getUserReceiveInfo} from "@/services/FirestoreService";
 import {Link2, Siren} from "lucide-react";
@@ -58,8 +59,18 @@ export default function Home() {
           }}
         />
       </nav>
-      <div className="flex flex-col pt-24 gap-6 h-3/4 w-full  justify-center">
-        <div className="flex flex-col items-center justify-start text-center px-4 gap-0">
+
+      <div className="flex flex-col pt-24 gap-6 h-full w-full  justify-center relative">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <Squares
+            speed={0.2}
+            squareSize={40}
+            direction="diagonal" // up, down, left, right, diagonal
+            borderColor="#2b2b2b"
+            hoverFillColor="#7f7f7f"
+          />
+        </div>
+        <div className="flex flex-col items-center justify-start text-center px-4 gap-0 z-10">
           <h1 className="text-4xl md:text-6xl font-bold">
             Take Control of Your Links
           </h1>
@@ -78,7 +89,7 @@ export default function Home() {
             </h1>
           </a>
         </div>
-        <div className="w-full flex justify-center gap-3">
+        <div className="w-full flex justify-center gap-3 z-10">
           <Button
             className="font-bold group transition-all"
             onClick={() => {

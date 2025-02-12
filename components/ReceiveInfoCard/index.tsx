@@ -28,7 +28,7 @@ const ReceiveInfoCard = ({show, uid}: Props) => {
   return (
     <Card
       className={classNames(
-        "w-[380px] h-[220px] bg-black/50 backdrop-blur-sm absolute bottom-6 left-[calc(50%-190px)] animate-pulseBorder border-gray-600/30",
+        "z-30 w-[380px] h-[220px] bg-black/50 backdrop-blur-sm absolute bottom-6 left-[calc(50%-190px)] animate-pulseBorder border-gray-600/30",
         {
           " hidden": !showCard,
         }
