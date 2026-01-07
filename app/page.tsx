@@ -99,18 +99,19 @@ export default function Home() {
             <Link2 className="h-5 w-5 group-hover:-rotate-45 transition-all" />
             Create a Shoorty
           </Button>
+            <Button
+              className="font-bold group transition-all"
+              variant={"secondary"}
+              asChild
+            >
           <a
             href="https://github.com/FJanza/shorty-frontend/issues"
             target="_blank"
           >
-            <Button
-              className="font-bold group transition-all"
-              variant={"secondary"}
-            >
               <Siren className="h-5 w-5 group-hover:animate-color-change " />I
               found an issue
-            </Button>
           </a>
+            </Button>
         </div>
       </div>
       <ReceiveInfoCard

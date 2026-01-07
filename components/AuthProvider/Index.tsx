@@ -27,15 +27,14 @@ const AuthProvider = ({children}: Props) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-    });
-
-    return unsubscribe;
-  }, []);
-
-  useEffect(() => {
-    if (!currentUser && !WHITE_LIST.includes(path)) {
+       if (user === null && !WHITE_LIST.includes(path)) {
       router.replace("/");
     }
+    });
+
+    return () => unsubscribe();
+
+   
   }, [path]);
 
   return (
